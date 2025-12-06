@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaStar } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -10,16 +10,19 @@ const Login = () => {
     console.log(data);
   };
   return (
-    <div className="bg-white rounded-2xl p-5">
-      <h2 className="text-3xl font-extrabold">Welcome Back</h2>
-      <p className="mt-2">Login with BloodLine</p>
+    <div className="sm:p-5 mt-10 w-full max-w-5xl mx-auto">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mt-5 flex flex-col gap-5"
+        className="grid sm:grid-cols-2 gap-5"
       >
         {/* Email */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="flex">
+            Email{" "}
+            <sup className="text-[8px] text-red-400">
+              <FaStar />
+            </sup>
+          </label>
           <div className="relative">
             <input
               type="email"
@@ -27,9 +30,9 @@ const Login = () => {
               {...register("email")}
               id="email"
               placeholder="Email"
-              className="input w-full text-lg pr-8"
+              className="input w-full pr-8"
             />
-            <span className="absolute right-0 top-1/5 z-10 p-1">
+            <span className="absolute right-0 top-1 z-10 p-1">
               <CiMail className="text-2xl" />
             </span>
           </div>
@@ -37,7 +40,12 @@ const Login = () => {
 
         {/* Password */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="flex">
+            Password
+            <sup className="text-[8px] text-red-400">
+              <FaStar />
+            </sup>
+          </label>
           <div className="relative">
             <input
               type={passwordType ? "password" : "text"}
@@ -45,28 +53,28 @@ const Login = () => {
               {...register("password")}
               id="password"
               placeholder="Password"
-              className="input w-full text-lg pr-8"
+              className="input w-full pr-8"
             />
             <span
               onClick={() => setPasswordType(!passwordType)}
-              className="absolute right-0 top-1/5 z-10 p-1 cursor-pointer"
+              className="absolute right-0 top-1 z-10 p-1 cursor-pointer"
             >
               {passwordType ? (
-                <FaEyeSlash className="text-2xl" />
+                <FaRegEyeSlash className="text-2xl" />
               ) : (
-                <FaEye className="text-2xl" />
+                <FaRegEye className="text-2xl" />
               )}
             </span>
           </div>
         </div>
 
         {/* Login */}
-        <div className="flex flex-col gap-2">
-          <button className="btn btn-secondary text-lg">Login</button>
-        </div>
+        <button className="col-span-full btn btn-secondary text-lg">
+          Login
+        </button>
 
         {/* Do not have */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-right col-span-full">
           <p>
             Don't have an account?
             <Link to="/auth/register" className="text-secondary font-bold">
