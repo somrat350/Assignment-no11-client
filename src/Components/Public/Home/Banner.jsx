@@ -11,7 +11,7 @@ const Banner = () => {
       />
       {/* Text Content */}
       <div className="flex flex-col justify-center items-center h-96 p-5 gap-5">
-        <h1 className="text-3xl md:text-5xl text-center font-bold text-red-600">
+        <h1 className="text-3xl md:text-5xl text-center font-bold text-secondary">
           Save a Life. Become a Donor Today.
         </h1>
         <p className="text-center">
