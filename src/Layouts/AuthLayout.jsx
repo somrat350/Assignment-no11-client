@@ -1,7 +1,6 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import authImg from "../assets/authImg.png";
 import Logo from "../Components/Public/Logo";
-import { toast } from "react-toastify";
 import useAuth from "../Hooks/useAuth";
 
 const AuthLayout = () => {
@@ -12,7 +11,6 @@ const AuthLayout = () => {
   if (userLoading) return <span>Loading...</span>;
 
   if (user) {
-    toast.info("You are already joined with us.");
     navigate("/");
     return;
   }

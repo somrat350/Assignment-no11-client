@@ -1,14 +1,35 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaRegEye, FaRegEyeSlash, FaStar } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
 const Login = () => {
-  const [passwordType, setPasswordType] = useState(true);
+  const { loginUEP, setUserLoading } = useAuth();
   const { register, handleSubmit } = useForm();
+  const [passwordType, setPasswordType] = useState(true);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const onSubmit = (data) => {
-    console.log(data);
+    loginUEP(data.email, data.password)
+      .then(() => {
+        navigate(from);
+        toast.success("Login successful.");
+      })
+      .catch((err) => {
+        if (err.code === "auth/invalid-credential") {
+          toast.error("Incorrect email or password!");
+        }
+      })
+      .finally(() => {
+        setUserLoading(false);
+      });
   };
+
   return (
     <div className="sm:p-5 mt-10 w-full max-w-5xl mx-auto">
       <form
