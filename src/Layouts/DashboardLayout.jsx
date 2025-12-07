@@ -1,12 +1,41 @@
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import Header from "../Components/Dashboard/Header";
 import useRole from "../Hooks/useRole";
 import logoImg from "../assets/logo.png";
+import { CgProfile } from "react-icons/cg";
+import { RxDashboard } from "react-icons/rx";
 
 const DashboardLayout = () => {
   const { role, isLoading } = useRole();
   if (isLoading) return;
-  const menuItems = <></>;
+  const menuItems = (
+    <>
+      <li>
+        <NavLink
+          to="/dashboard"
+          end
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="Dashboard"
+        >
+          {/* Dashboard icon */}
+          <RxDashboard className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">Dashboard</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          end
+          to="/dashboard/profile"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="Profile"
+        >
+          {/* Profile icon */}
+          <CgProfile className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">Profile</span>
+        </NavLink>
+      </li>
+    </>
+  );
   return (
     <div className="bg-[#dcdedf] min-h-screen">
       <div className="drawer lg:drawer-open">
@@ -45,7 +74,7 @@ const DashboardLayout = () => {
             </div>
           </nav>
           <div className="p-5">
-            <div className="bg-white rounded-2xl p-3">
+            <div className="bg-white rounded-2xl p-4">
               <Outlet />
             </div>
           </div>
