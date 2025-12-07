@@ -6,7 +6,7 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
 
 const Header = () => {
-  const { user, userLoading } = useAuth();
+  const { user, userLoading, logout } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
   if (userLoading) return;
   const menuLink = (
@@ -31,12 +31,37 @@ const Header = () => {
 
   const rightLink = (
     <>
-      {!user && (
-        <>
-          <Link className="btn btn-secondary" to="/auth/login">
-            Login
-          </Link>
-        </>
+      {user ? (
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn m-1">
+            <img src={user?.photoURL} className="w-8 h-8 rounded-full" />
+          </div>
+          <ul
+            tabIndex="-1"
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-fit min-w-52 p-2 shadow-sm gap-2"
+          >
+            <li>
+              <p className="btn">{user.displayName}</p>
+            </li>
+            <li>
+              <p className="btn">{user.email}</p>
+            </li>
+            <li>
+              <Link to="/profile" className="btn">
+                Profile
+              </Link>
+            </li>
+            <li>
+              <button onClick={logout} className="btn btn-secondary">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <Link className="btn btn-secondary" to="/auth/login">
+          Login
+        </Link>
       )}
     </>
   );
