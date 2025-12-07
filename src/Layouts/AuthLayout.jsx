@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import authImg from "../assets/authImg.png";
 import Logo from "../Components/Public/Logo";
 import useAuth from "../Hooks/useAuth";
@@ -6,17 +6,13 @@ import useAuth from "../Hooks/useAuth";
 const AuthLayout = () => {
   const { user, userLoading } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
 
   if (userLoading) return <span>Loading...</span>;
 
-  if (user) {
-    navigate("/");
-    return;
-  }
-
   let bannerTitle;
-  if (
+  if (user) {
+    bannerTitle = "You are already a user";
+  } else if (
     location.pathname === "/auth" ||
     location.pathname === "/auth/" ||
     location.pathname === "/auth/login"
@@ -31,12 +27,20 @@ const AuthLayout = () => {
       <div className="flex items-center justify-between">
         <Logo />
         <div className="flex items-center gap-3">
-          <Link to="/auth/login" className="btn btn-outline btn-secondary">
-            Login
-          </Link>
-          <Link to="/auth/register" className="btn btn-secondary">
-            Register
-          </Link>
+          {user ? (
+            <Link to="/" className="btn btn-secondary">
+              Go to home
+            </Link>
+          ) : (
+            <>
+              <Link to="/auth/login" className="btn btn-outline btn-secondary">
+                Login
+              </Link>
+              <Link to="/auth/register" className="btn btn-secondary">
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div
@@ -49,7 +53,13 @@ const AuthLayout = () => {
           {bannerTitle}
         </h2>
       </div>
-      <Outlet />
+      {user ? (
+        <Link to="/" className="btn btn-secondary mt-10 w-fit mx-auto">
+          Go to home
+        </Link>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 };

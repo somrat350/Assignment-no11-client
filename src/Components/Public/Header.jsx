@@ -8,7 +8,9 @@ import useAuth from "../../Hooks/useAuth";
 const Header = () => {
   const { user, userLoading, logout } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
+
   if (userLoading) return;
+
   const menuLink = (
     <>
       <NavLink className="navLink" to="/">
@@ -41,14 +43,8 @@ const Header = () => {
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-fit min-w-52 p-2 shadow-sm gap-2"
           >
             <li>
-              <p className="btn">{user.displayName}</p>
-            </li>
-            <li>
-              <p className="btn">{user.email}</p>
-            </li>
-            <li>
-              <Link to="/profile" className="btn">
-                Profile
+              <Link to="/dashboard" className="btn btn-outline btn-secondary">
+                Dashboard
               </Link>
             </li>
             <li>
