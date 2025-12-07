@@ -1,3 +1,4 @@
+import DonorHome from "../../Components/Dashboard/Home/DonorHome";
 import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 
@@ -9,7 +10,7 @@ const DashboardHome = () => {
     <div>
       <h1 className="text-3xl font-bold flex items-center gap-2">Dashboard</h1>
 
-      <div className="mt-5 bg-white shadow-md p-5 rounded-xl">
+      <div className="shadow-md p-5 rounded-xl">
         <h2 className="text-2xl font-semibold">
           Welcome, <span className="text-secondary">{user?.displayName}</span>{" "}
           👋
@@ -19,6 +20,7 @@ const DashboardHome = () => {
           Thank you for being a valuable blood donor.
         </p>
       </div>
+      {role === "donor" && <DonorHome />}
     </div>
   );
 };
