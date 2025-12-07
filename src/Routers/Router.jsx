@@ -10,6 +10,7 @@ import PrivetRouter from "./PrivateRouter";
 import Profile from "../Pages/Dashboard/Profile";
 import DashboardHome from "../Pages/Dashboard/DashboardHome";
 import NewDonationRequest from "../Pages/Dashboard/NewDonationRequest";
+import MyDonationRequests from "../Pages/Dashboard/MyDonationRequests";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: "newDonationRequest",
         Component: NewDonationRequest,
+      },
+      {
+        path: "myDonationRequests",
+        Component: MyDonationRequests,
       },
     ],
   },

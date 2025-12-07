@@ -5,6 +5,7 @@ import logoImg from "../assets/logo.png";
 import { CgProfile } from "react-icons/cg";
 import { RxDashboard } from "react-icons/rx";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { LuGitPullRequest } from "react-icons/lu";
 
 const DashboardLayout = () => {
   const { role, isLoading } = useRole();
@@ -45,6 +46,18 @@ const DashboardLayout = () => {
           {/* Profile icon */}
           <IoMdAddCircleOutline className="font-bold text-xl" />
           <span className="is-drawer-close:hidden">New Donation Request</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          end
+          to="/dashboard/myDonationRequests"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="My Donation Requests"
+        >
+          {/* Profile icon */}
+          <LuGitPullRequest className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">My Donation Requests</span>
         </NavLink>
       </li>
     </>

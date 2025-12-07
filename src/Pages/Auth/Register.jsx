@@ -122,6 +122,7 @@ const Register = () => {
           gender: data.gender,
           bloodGroup: data.bloodGroup,
           role: "donor",
+          status: "active",
         };
         await instance.post("/newUser", userInfo);
 

@@ -1,39 +1,48 @@
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import useRole from "../../../Hooks/useRole";
-import useAuth from "../../../Hooks/useAuth";
+import useAuth from "../../Hooks/useAuth";
 import { Link } from "react-router";
+import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-const DonorHome = () => {
+const MyDonationRequests = () => {
   const { user, userLoading } = useAuth();
-  const { role, isLoading } = useRole();
+  const [filterBy, setFilterBy] = useState("all");
   const instanceSecure = useAxiosSecure();
 
-  // Fetch recent 3 donation requests created by this donor
-  const { data: recentRequests = [] } = useQuery({
-    queryKey: ["recent-donation-requests", user?.email],
+  // Fetch donation requests created by this user
+  const { data: donationRequests = [], isLoading } = useQuery({
+    queryKey: ["donation-requests", user?.email, filterBy],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await instanceSecure.get(
-        `/recentDonationRequests?email=${user?.email}`
+        `/donationRequests?email=${user?.email}&filterBy=${filterBy}`
       );
       return res.data;
     },
   });
 
-  if (userLoading || isLoading) return;
-
   return (
     <div>
-      {/* Recent 3 Donation Requests */}
-      {recentRequests.length > 0 && (
-        <div className="shadow-md p-6 rounded-xl">
-          <h3 className="text-xl font-semibold mb-4">
-            Your Recent Donation Requests
-          </h3>
-
-          <div className="overflow-x-auto">
+      <h2 className="text-3xl font-bold">My Donation Requests</h2>
+      <div className="p-2 sm:p-5">
+        <div className="mt-2 flex justify-end">
+          <select
+            onChange={(e) => setFilterBy(e.target.value)}
+            defaultValue="all"
+            className="select"
+          >
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="inprogress">Inprogress</option>
+            <option value="done">Done</option>
+            <option value="canceled">Canceled</option>
+          </select>
+        </div>
+        <div className="overflow-x-auto mt-10">
+          {userLoading || isLoading ? (
+            "Loading..."
+          ) : (
             <table className="table w-full">
               <thead>
                 <tr className="font-semibold text-gray-700">
@@ -50,7 +59,7 @@ const DonorHome = () => {
               </thead>
 
               <tbody>
-                {recentRequests.map((req, i) => (
+                {donationRequests.map((req, i) => (
                   <tr key={req._id}>
                     <td>{i + 1}</td>
                     <td>{req.recipientName}</td>
@@ -157,21 +166,11 @@ const DonorHome = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-
-          {/* View All Button */}
-          <div className="text-center mt-6">
-            <Link
-              to="/dashboard/myDonationRequests"
-              className="btn btn-outline btn-secondary"
-            >
-              View My All Requests
-            </Link>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-export default DonorHome;
+export default MyDonationRequests;
