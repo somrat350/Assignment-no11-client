@@ -4,6 +4,7 @@ import useRole from "../Hooks/useRole";
 import logoImg from "../assets/logo.png";
 import { CgProfile } from "react-icons/cg";
 import { RxDashboard } from "react-icons/rx";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 const DashboardLayout = () => {
   const { role, isLoading } = useRole();
@@ -34,6 +35,18 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">Profile</span>
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          end
+          to="/dashboard/newDonationRequest"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="New Donation Request"
+        >
+          {/* Profile icon */}
+          <IoMdAddCircleOutline className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">New Donation Request</span>
+        </NavLink>
+      </li>
     </>
   );
   return (
@@ -47,7 +60,7 @@ const DashboardLayout = () => {
         />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar w-full bg-white sticky top-0 z-10">
+          <nav className="navbar w-full bg-white sticky top-0 z-20">
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
