@@ -1,3 +1,4 @@
+import AdminHome from "../../Components/Dashboard/Home/AdminHome";
 import DonorHome from "../../Components/Dashboard/Home/DonorHome";
 import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
@@ -21,6 +22,7 @@ const DashboardHome = () => {
         </p>
       </div>
       {role === "donor" && <DonorHome />}
+      {role === "admin" && <AdminHome />}
     </div>
   );
 };
