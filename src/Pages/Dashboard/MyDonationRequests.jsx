@@ -4,14 +4,20 @@ import useAuth from "../../Hooks/useAuth";
 import { Link } from "react-router";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 const MyDonationRequests = () => {
   const { user, userLoading } = useAuth();
   const [filterBy, setFilterBy] = useState("all");
+  const [loading, setLoading] = useState(false);
   const instanceSecure = useAxiosSecure();
 
   // Fetch donation requests created by this user
-  const { data: donationRequests = [], isLoading } = useQuery({
+  const {
+    data: donationRequests = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["donation-requests", user?.email, filterBy],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -21,6 +27,38 @@ const MyDonationRequests = () => {
       return res.data;
     },
   });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        instanceSecure
+          .delete(`/deleteRequest/${id}?email=${user?.email}`)
+          .then((res) => {
+            setLoading(false);
+            if (res.data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your request has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
+
+  if (userLoading || isLoading || loading)
+    return <p className="text-center mt-5">Loading...</p>;
 
   return (
     <div>
@@ -132,8 +170,8 @@ const MyDonationRequests = () => {
                           <li>
                             {/* Delete */}
                             <button
-                              className="btn btn-sm btn-secondary text-white"
-                              // onClick={() => handleDelete(req._id)}
+                              className="btn btn-sm btn-secondary"
+                              onClick={() => handleDelete(req._id)}
                             >
                               Delete
                             </button>

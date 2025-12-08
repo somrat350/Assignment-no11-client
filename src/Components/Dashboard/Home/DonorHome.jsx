@@ -1,17 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import useRole from "../../../Hooks/useRole";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 const DonorHome = () => {
   const { user, userLoading } = useAuth();
-  const { role, isLoading } = useRole();
   const instanceSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
 
   // Fetch recent 3 donation requests created by this donor
-  const { data: recentRequests = [] } = useQuery({
+  const {
+    data: recentRequests = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["recent-donation-requests", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -22,7 +27,37 @@ const DonorHome = () => {
     },
   });
 
-  if (userLoading || isLoading) return;
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        instanceSecure
+          .delete(`/deleteRequest/${id}?email=${user?.email}`)
+          .then((res) => {
+            setLoading(false);
+            if (res.data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your request has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
+
+  if (userLoading || isLoading || loading)
+    return <p className="text-center mt-5">Loading...</p>;
 
   return (
     <div>
@@ -134,7 +169,7 @@ const DonorHome = () => {
                             {/* Delete */}
                             <button
                               className="btn btn-sm btn-secondary text-white"
-                              // onClick={() => handleDelete(req._id)}
+                              onClick={() => handleDelete(req._id)}
                             >
                               Delete
                             </button>
