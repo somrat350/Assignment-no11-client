@@ -9,8 +9,7 @@ import { LuGitPullRequest } from "react-icons/lu";
 import { FaUsersViewfinder } from "react-icons/fa6";
 
 const DashboardLayout = () => {
-  const { role, isLoading } = useRole();
-  if (isLoading) return;
+  const { role } = useRole();
   const menuItems = (
     <>
       <li>
