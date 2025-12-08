@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { RxDashboard } from "react-icons/rx";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { LuGitPullRequest } from "react-icons/lu";
+import { FaUsersViewfinder } from "react-icons/fa6";
 
 const DashboardLayout = () => {
   const { role, isLoading } = useRole();
@@ -60,6 +61,20 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">My Donation Requests</span>
         </NavLink>
       </li>
+      {role === "admin" && (
+        <li>
+          <NavLink
+            end
+            to="/dashboard/allUsers"
+            className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+            data-tip="All Users"
+          >
+            {/* Profile icon */}
+            <FaUsersViewfinder className="font-bold text-xl" />
+            <span className="is-drawer-close:hidden">All Users</span>
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
