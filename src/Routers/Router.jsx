@@ -16,6 +16,7 @@ import EditDonationRequest from "../Pages/Dashboard/EditDonationRequest";
 import RequestDetails from "../Pages/Dashboard/RequestDetails";
 import AdminRouter from "./AdminRouter";
 import AllDonationRequests from "../Pages/Dashboard/AllDonationRequests";
+import DonationRequests from "../Pages/Public/DonationRequests";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         Component: Search,
+      },
+      {
+        path: "/donationRequests",
+        Component: DonationRequests,
       },
     ],
   },
