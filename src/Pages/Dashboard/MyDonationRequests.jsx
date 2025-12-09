@@ -154,7 +154,8 @@ const MyDonationRequests = () => {
 
                     {/* Donor Info */}
                     <td>
-                      {req.donationStatus === "inprogress" ? (
+                      {req.donationStatus === "inprogress" ||
+                      req.donationStatus === "done" ? (
                         <div>
                           <p>{req.donorName}</p>
                           <p className="text-xs text-gray-500">
@@ -179,7 +180,7 @@ const MyDonationRequests = () => {
                           <li>
                             {/* View */}
                             <Link
-                              to={`/dashboard/donation-requests/${req._id}`}
+                              to={`/dashboard/viewDonationRequest/${req._id}`}
                               className="btn btn-sm btn-info text-white"
                             >
                               View

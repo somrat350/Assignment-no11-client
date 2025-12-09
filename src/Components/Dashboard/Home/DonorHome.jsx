@@ -177,7 +177,7 @@ const DonorHome = () => {
                           <li>
                             {/* View */}
                             <Link
-                              to={`/dashboard/donation-requests/${req._id}`}
+                              to={`/dashboard/viewDonationRequest/${req._id}`}
                               className="btn btn-sm btn-info text-white"
                             >
                               View
