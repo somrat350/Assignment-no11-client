@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const AllUsers = () => {
   const { user, userLoading } = useAuth();
@@ -10,7 +11,11 @@ const AllUsers = () => {
   const [filterBy, setFilterBy] = useState("all");
 
   // Fetch all users
-  const { data: allUsers = [], isLoading } = useQuery({
+  const {
+    data: allUsers = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["all-users", user?.email, filterBy],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -20,6 +25,28 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  const handleUpdateUser = async (id, email, status, role) => {
+    if (email === user.email) {
+      toast.error(`You don't have permission to update your self !`);
+      return;
+    }
+    const updatedData = {};
+    if (status !== null) {
+      updatedData.status = status;
+    }
+    if (role !== null) {
+      updatedData.role = role;
+    }
+    const res = await instanceSecure.put(
+      `/updateProfile/${id}?email=${user?.email}`,
+      updatedData
+    );
+    if (res.data.modifiedCount > 0) {
+      refetch();
+      toast.success("User updated successfully!");
+    }
+  };
 
   return (
     <div>
@@ -90,26 +117,76 @@ const AllUsers = () => {
                           className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm gap-1"
                         >
                           {user.status === "active" ? (
-                            <button className="btn btn-sm btn-secondary text-white">
+                            <button
+                              onClick={() =>
+                                handleUpdateUser(
+                                  user._id,
+                                  user.email,
+                                  "blocked",
+                                  null
+                                )
+                              }
+                              className="btn btn-sm btn-secondary text-white"
+                            >
                               Blocked
                             </button>
                           ) : (
-                            <button className="btn btn-sm btn-success text-white">
-                              Active
+                            <button
+                              onClick={() =>
+                                handleUpdateUser(
+                                  user._id,
+                                  user.email,
+                                  "active",
+                                  null
+                                )
+                              }
+                              className="btn btn-sm btn-success text-white"
+                            >
+                              Unblocked
                             </button>
                           )}
                           {user.role !== "donor" && (
-                            <button className="btn btn-sm btn-info text-white">
+                            <button
+                              onClick={() =>
+                                handleUpdateUser(
+                                  user._id,
+                                  user.email,
+                                  null,
+                                  "donor"
+                                )
+                              }
+                              className="btn btn-sm btn-info text-white"
+                            >
                               Make Donor
                             </button>
                           )}
                           {user.role !== "volunteer" && (
-                            <button className="btn btn-sm btn-info text-white">
+                            <button
+                              onClick={() =>
+                                handleUpdateUser(
+                                  user._id,
+                                  user.email,
+                                  null,
+                                  "volunteer"
+                                )
+                              }
+                              className="btn btn-sm btn-info text-white"
+                            >
                               Make Volunteer
                             </button>
                           )}
                           {user.role !== "admin" && (
-                            <button className="btn btn-sm btn-info text-white">
+                            <button
+                              onClick={() =>
+                                handleUpdateUser(
+                                  user._id,
+                                  user.email,
+                                  null,
+                                  "admin"
+                                )
+                              }
+                              className="btn btn-sm btn-info text-white"
+                            >
                               Make Admin
                             </button>
                           )}

@@ -91,9 +91,6 @@ const MyDonationRequests = () => {
     });
   };
 
-  if (userLoading || isLoading || loading)
-    return <p className="text-center mt-5">Loading...</p>;
-
   return (
     <div>
       <h2 className="text-3xl font-bold">My Donation Requests</h2>
@@ -112,7 +109,7 @@ const MyDonationRequests = () => {
           </select>
         </div>
         <div className="overflow-x-auto mt-10">
-          {userLoading || isLoading ? (
+          {userLoading || isLoading || loading ? (
             "Loading..."
           ) : (
             <table className="table w-full">

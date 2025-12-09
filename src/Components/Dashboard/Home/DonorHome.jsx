@@ -157,7 +157,8 @@ const DonorHome = () => {
 
                     {/* Donor Info */}
                     <td>
-                      {req.donationStatus === "inprogress" ? (
+                      {req.donationStatus === "inprogress" ||
+                      req.donationStatus === "done" ? (
                         <div>
                           <p>{req.donorName}</p>
                           <p className="text-xs text-gray-500">
