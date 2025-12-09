@@ -35,6 +35,14 @@ export const router = createBrowserRouter([
         path: "/donationRequests",
         Component: DonationRequests,
       },
+      {
+        path: "/viewDonationRequest/:id",
+        element: (
+          <PrivetRouter>
+            <RequestDetails />
+          </PrivetRouter>
+        ),
+      },
     ],
   },
   {
