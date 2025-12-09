@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import bannerImg from "../../../assets/banner.jpg";
+import bannerImg from "../../../assets/authImg.png";
 
 const Banner = () => {
   return (
@@ -14,14 +14,17 @@ const Banner = () => {
         <h1 className="text-3xl md:text-5xl text-center font-bold text-secondary">
           Save a Life. Become a Donor Today.
         </h1>
-        <p className="text-center">
+        <p className="text-center text-white">
           Blood Line helps connect lifesavers with patients in need. Join our
           community and make a difference.
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
           {/* Join as Donor Button */}
-          <Link to="" className="btn btn-secondary text-white px-6">
+          <Link
+            to="/auth/register"
+            className="btn btn-secondary text-white px-6"
+          >
             Join as a Donor
           </Link>
 

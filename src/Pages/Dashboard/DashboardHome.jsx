@@ -23,6 +23,7 @@ const DashboardHome = () => {
       </div>
       {role === "donor" && <DonorHome />}
       {role === "admin" && <AdminHome />}
+      {role === "volunteer" && <AdminHome />}
     </div>
   );
 };
