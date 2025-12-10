@@ -7,6 +7,7 @@ import { RxDashboard } from "react-icons/rx";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { LuGitPullRequest } from "react-icons/lu";
 import { FaBorderAll, FaUsersViewfinder } from "react-icons/fa6";
+import { LiaDonateSolid } from "react-icons/lia";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -36,6 +37,32 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">Profile</span>
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          end
+          to="/dashboard/funding"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="Funding"
+        >
+          {/* Profile icon */}
+          <LiaDonateSolid className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">Funding</span>
+        </NavLink>
+      </li>
+      {role === "admin" && (
+        <li>
+          <NavLink
+            end
+            to="/dashboard/allUsers"
+            className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+            data-tip="All Users"
+          >
+            {/* Profile icon */}
+            <FaUsersViewfinder className="font-bold text-xl" />
+            <span className="is-drawer-close:hidden">All Users</span>
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           end
@@ -72,20 +99,6 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">All Donation Requests</span>
         </NavLink>
       </li>
-      {role === "admin" && (
-        <li>
-          <NavLink
-            end
-            to="/dashboard/allUsers"
-            className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
-            data-tip="All Users"
-          >
-            {/* Profile icon */}
-            <FaUsersViewfinder className="font-bold text-xl" />
-            <span className="is-drawer-close:hidden">All Users</span>
-          </NavLink>
-        </li>
-      )}
     </>
   );
   return (

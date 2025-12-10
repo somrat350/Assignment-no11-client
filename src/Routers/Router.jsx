@@ -17,6 +17,9 @@ import RequestDetails from "../Pages/Dashboard/RequestDetails";
 import AdminRouter from "./AdminRouter";
 import AllDonationRequests from "../Pages/Dashboard/AllDonationRequests";
 import DonationRequests from "../Pages/Public/DonationRequests";
+import Funding from "../Pages/Public/Payment/Funding";
+import PaymentSuccessful from "../Pages/Public/Payment/PaymentSuccessful";
+import PaymentCanceled from "../Pages/Public/Payment/PaymentCanceled";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +43,30 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRouter>
             <RequestDetails />
+          </PrivetRouter>
+        ),
+      },
+      {
+        path: "/funding",
+        element: (
+          <PrivetRouter>
+            <Funding />
+          </PrivetRouter>
+        ),
+      },
+      {
+        path: "/paymentSuccessful",
+        element: (
+          <PrivetRouter>
+            <PaymentSuccessful />
+          </PrivetRouter>
+        ),
+      },
+      {
+        path: "/paymentCanceled",
+        element: (
+          <PrivetRouter>
+            <PaymentCanceled />
           </PrivetRouter>
         ),
       },
