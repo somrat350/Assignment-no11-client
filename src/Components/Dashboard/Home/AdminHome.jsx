@@ -26,7 +26,21 @@ const AdminHome = () => {
       return res.data;
     },
   });
-  if (loadingRequests || loadingUsers) return;
+  // Fetch all funding
+  const { data: funding = [], isLoading: loadingFunding } = useQuery({
+    queryKey: ["funding", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await instanceSecure.get(`/funding`);
+      return res.data;
+    },
+  });
+  let totalAmount = 0;
+  if (funding.length > 0) {
+    totalAmount = funding.reduce((sum, fund) => sum + fund.amount, 0);
+  }
+
+  if ((loadingRequests || loadingUsers, loadingFunding)) return;
   return (
     <div className="grid md:grid-cols-3 gap-5">
       <div className="h-40 flex flex-col gap-2 justify-center items-center rounded-2xl bg-linear-to-br from-secondary to-primary text-white font-bold text-3xl">
@@ -40,7 +54,7 @@ const AdminHome = () => {
         <h2>Total Funding</h2>
         <div className="flex justify-center gap-1">
           <FaBangladeshiTakaSign />
-          <h2>100</h2>
+          <h2>{totalAmount}</h2>
         </div>
       </div>
       <div className="h-40 flex flex-col gap-2 justify-center items-center rounded-2xl bg-linear-to-br from-secondary to-primary text-white font-bold text-3xl">
