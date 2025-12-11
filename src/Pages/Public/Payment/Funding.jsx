@@ -5,6 +5,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxios from "../../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import TopDonorPieChart from "../../../Components/Public/Funding/TopDonorPieChart";
 
 const Funding = () => {
   const { user, userLoading } = useAuth();
@@ -35,7 +36,6 @@ const Funding = () => {
       return res.data;
     },
   });
-  console.log(topFunder);
 
   let totalAmount = 0;
   if (funding.length > 0) {
@@ -137,8 +137,13 @@ const Funding = () => {
           <button className="btn btn-outline btn-secondary btn-sm">Next</button>
         </div>
       </div>
-      <div className="mt-10">
-        <h2 className="text-xl">Top Funder</h2>
+      <div className="my-10">
+        <h2 className="text-2xl font-bold">Top 5 Funder</h2>
+        {topFunder.length > 0 ? (
+          <TopDonorPieChart topFunder={topFunder} />
+        ) : (
+          "not found"
+        )}
       </div>
       <dialog id="paymentModal" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
