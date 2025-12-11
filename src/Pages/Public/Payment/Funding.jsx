@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
-import { TbCurrencyTaka } from "react-icons/tb";
 import useAuth from "../../../Hooks/useAuth";
 import useAxios from "../../../Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Funding = () => {
   const { user, userLoading } = useAuth();
@@ -11,7 +12,35 @@ const Funding = () => {
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(100);
   const instance = useAxios();
-  const funding = [];
+  const instanceSecure = useAxiosSecure();
+
+  // Fetch funding by this user
+  const { data: funding = [], isLoading } = useQuery({
+    queryKey: ["funding", user?.email, sortBy],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await instanceSecure.get(
+        `/funding?email=${user?.email}&sortBy=${sortBy}`
+      );
+      return res.data;
+    },
+  });
+
+  // Fetch funding by this user
+  const { data: topFunder = [] } = useQuery({
+    queryKey: ["topFunder", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await instance.get(`/topFunder`);
+      return res.data;
+    },
+  });
+  console.log(topFunder);
+
+  let totalAmount = 0;
+  if (funding.length > 0) {
+    totalAmount = funding.reduce((sum, fund) => sum + fund.amount, 0);
+  }
 
   const handlePayment = async (e) => {
     setLoading(true);
@@ -36,10 +65,9 @@ const Funding = () => {
       <div className="flex items-center justify-end gap-5">
         <div className="flex flex-col items-end">
           <span className="text-sm">Given by you</span>
-          <div className="flex items-center gap-2 text-xl text-secondary font-bold">
-            <TbCurrencyTaka />
-            <span className="">100</span>
-          </div>
+          <span className="text-xl text-secondary font-bold">
+            {totalAmount} BDT
+          </span>
         </div>
         <button
           className="btn btn-secondary btn-lg"
@@ -48,46 +76,69 @@ const Funding = () => {
           Give Fund
         </button>
       </div>
-      <div className="flex gap-3 items-center mt-5">
-        <span>Sort by:</span>
-        <select
-          onChange={(e) => setSortBy(e.target.value)}
-          defaultValue={sortBy}
-          className="select w-28"
-        >
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
+      <div className="flex justify-between items-center gap-3 mt-5">
+        <div className="flex gap-3 items-center">
+          <span>Sort by:</span>
+          <select
+            onChange={(e) => setSortBy(e.target.value)}
+            defaultValue={sortBy}
+            className="select w-24"
+          >
+            <option value="date">Date</option>
+            <option value="amount">Amount</option>
+          </select>
+        </div>
+        <span className="text-sm sm:text-base">Showing 5 records</span>
       </div>
       <div className="overflow-x-auto mt-5">
-        {userLoading || loading ? (
+        {userLoading || loading || isLoading ? (
           "Loading..."
         ) : (
           <table className="table w-full">
             <thead>
               <tr className="font-semibold text-gray-700">
-                <th>#</th>
-                <th>User</th>
+                <th className="hidden sm:table-cell">#</th>
+                <th className="hidden sm:table-cell">User</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
               {funding.map((fund, i) => (
                 <tr key={fund._id}>
-                  <td>{i + 1}</td>
-                  <td>{fund.name}</td>
-                  <td>{fund.amount}</td>
+                  <td className="hidden sm:table-cell">{i + 1}</td>
+                  <td className="hidden sm:table-cell">{fund.name}</td>
+                  <td className="text-secondary font-bold">{fund.amount}</td>
                   <td>{fund.date}</td>
+                  <td>
+                    <a
+                      href={`${
+                        import.meta.env.VITE_SERVER_LINK
+                      }/generateReceipt?id=${fund._id}`}
+                      target="_blank"
+                      className="btn btn-secondary btn-sm"
+                    >
+                      Download{" "}
+                      <span className="hidden sm:flex">Receipt (PDF)</span>
+                    </a>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
+      <div className="flex items-center justify-between gap-3 mt-5">
+        <span className="text-secondary font-bold">Page 1 of 3</span>
+        <div className="flex items-center gap-3">
+          <button className="btn btn-outline btn-secondary btn-sm">Prev</button>
+          <button className="btn btn-outline btn-secondary btn-sm">Next</button>
+        </div>
+      </div>
       <div className="mt-10">
-        <h2 className="text-xl">Top Donors</h2>
+        <h2 className="text-xl">Top Funder</h2>
       </div>
       <dialog id="paymentModal" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
