@@ -9,23 +9,25 @@ const AdminHome = () => {
   const { user } = useAuth();
   const instanceSecure = useAxiosSecure();
   // Fetch all users
-  const { data: allUsers = [], isLoading: loadingUsers } = useQuery({
+  const { data: allUsers = 0, isLoading: loadingUsers } = useQuery({
     queryKey: ["all-users", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await instanceSecure.get(`/allUsers?email=${user?.email}`);
-      return res.data;
+      return res.data.total;
     },
   });
+
   // Fetch all requests
-  const { data: allRequests = [], isLoading: loadingRequests } = useQuery({
+  const { data: allRequests = 0, isLoading: loadingRequests } = useQuery({
     queryKey: ["all-requests", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await instanceSecure.get(`/allRequests?email=${user?.email}`);
-      return res.data;
+      return res.data.total;
     },
   });
+
   // Fetch all funding
   const { data: totalAmount, isLoading: loadingFunding } = useQuery({
     queryKey: ["totalAmount", user?.email],
@@ -43,7 +45,7 @@ const AdminHome = () => {
         <h2>Total Users</h2>
         <div className="flex justify-center gap-1">
           <FaUser />
-          <h2>{allUsers.length}</h2>
+          <h2>{allUsers}</h2>
         </div>
       </div>
       <div className="h-40 flex flex-col gap-2 justify-center items-center rounded-2xl bg-linear-to-br from-primary to-secondary text-white font-bold text-3xl">
@@ -57,7 +59,7 @@ const AdminHome = () => {
         <h2>Total Requests</h2>
         <div className="flex justify-center gap-1">
           <LuGitPullRequest />
-          <h2>{allRequests.length}</h2>
+          <h2>{allRequests}</h2>
         </div>
       </div>
     </div>

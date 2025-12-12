@@ -11,22 +11,28 @@ const MyDonationRequests = () => {
   const [filterBy, setFilterBy] = useState("all");
   const [loading, setLoading] = useState(false);
   const instanceSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 5;
+  const skip = currentPage * limit;
 
   // Fetch donation requests created by this user
   const {
-    data: donationRequests = [],
+    data: donationRequestsData = {},
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["donation-requests", user?.email, filterBy],
+    queryKey: ["donation-requests", user?.email, filterBy, currentPage],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await instanceSecure.get(
-        `/donationRequests?email=${user?.email}&filterBy=${filterBy}`
+        `/donationRequests?email=${user?.email}&filterBy=${filterBy}&limit=${limit}&skip=${skip}`
       );
       return res.data;
     },
   });
+
+  const donationRequests = donationRequestsData.result || [];
+  const totalPages = Math.ceil(donationRequestsData.total / limit);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -108,6 +114,9 @@ const MyDonationRequests = () => {
             <option value="canceled">Canceled</option>
           </select>
         </div>
+        <span className="text-sm sm:text-base flex mt-3">
+          Showing 5 records
+        </span>
         <div className="overflow-x-auto mt-10">
           {userLoading || isLoading || loading ? (
             "Loading..."
@@ -130,7 +139,7 @@ const MyDonationRequests = () => {
               <tbody>
                 {donationRequests.map((req, i) => (
                   <tr key={req._id}>
-                    <td>{i + 1}</td>
+                    <td>{skip + i + 1}</td>
                     <td>{req.recipientName}</td>
                     <td>
                       {req.recipientDistrict}, {req.recipientUpazila}
@@ -239,6 +248,33 @@ const MyDonationRequests = () => {
               </tbody>
             </table>
           )}
+        </div>
+        <div className="flex items-center justify-between gap-3 mt-5">
+          {totalPages > 0 ? (
+            <span className="text-secondary font-bold">
+              Page {currentPage + 1} of {totalPages}
+            </span>
+          ) : (
+            <span className="text-secondary font-bold">Page 0 of 0</span>
+          )}
+          <div className="flex items-center gap-3">
+            {currentPage > 0 && (
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                className="btn btn-outline btn-secondary btn-sm"
+              >
+                Prev
+              </button>
+            )}
+            {currentPage + 1 < totalPages && (
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className="btn btn-outline btn-secondary btn-sm"
+              >
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

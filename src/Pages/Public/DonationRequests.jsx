@@ -7,18 +7,26 @@ import {
 } from "react-icons/ci";
 import { Link } from "react-router";
 import useAxios from "../../Hooks/useAxios";
+import { useState } from "react";
 
 const DonationRequests = () => {
   const instance = useAxios();
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 8;
+  const skip = currentPage * limit;
 
   // Fetch all requests
-  const { data: donationRequests = [], isLoading } = useQuery({
-    queryKey: ["donation-requests"],
+  const { data: donationRequestsData = {}, isLoading } = useQuery({
+    queryKey: ["donation-requests", currentPage],
     queryFn: async () => {
-      const res = await instance.get(`/allRequests?donationStatus=pending`);
+      const res = await instance.get(
+        `/allRequests?donationStatus=pending&limit=${limit}&skip=${skip}`
+      );
       return res.data;
     },
   });
+  const donationRequests = donationRequestsData.result || [];
+  const totalPages = Math.ceil(donationRequestsData.total / limit);
   return (
     <div>
       <h2 className="text-3xl font-bold text-center text-secondary mb-10">
@@ -76,6 +84,33 @@ const DonationRequests = () => {
           ))}
         </div>
       )}
+      <div className="flex items-center justify-between gap-3 my-5">
+        {totalPages > 0 ? (
+          <span className="text-secondary font-bold">
+            Page {currentPage + 1} of {totalPages}
+          </span>
+        ) : (
+          <span className="text-secondary font-bold">Page 0 of 0</span>
+        )}
+        <div className="flex items-center gap-3">
+          {currentPage > 0 && (
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              className="btn btn-outline btn-secondary btn-sm"
+            >
+              Prev
+            </button>
+          )}
+          {currentPage + 1 < totalPages && (
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              className="btn btn-outline btn-secondary btn-sm"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

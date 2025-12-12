@@ -9,22 +9,28 @@ const AllUsers = () => {
   const { user, userLoading } = useAuth();
   const instanceSecure = useAxiosSecure();
   const [filterBy, setFilterBy] = useState("all");
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 5;
+  const skip = currentPage * limit;
 
   // Fetch all users
   const {
-    data: allUsers = [],
+    data: allUsersData = {},
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["all-users", user?.email, filterBy],
+    queryKey: ["all-users", user?.email, filterBy, currentPage],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await instanceSecure.get(
-        `/allUsers?email=${user?.email}&status=${filterBy}`
+        `/allUsers?email=${user?.email}&status=${filterBy}&limit=${limit}&skip=${skip}`
       );
       return res.data;
     },
   });
+
+  const allUsers = allUsersData.result || [];
+  const totalPages = Math.ceil(allUsersData.total / limit);
 
   const handleUpdateUser = async (id, email, status, role) => {
     if (email === user.email) {
@@ -63,6 +69,9 @@ const AllUsers = () => {
             <option value="blocked">Blocked</option>
           </select>
         </div>
+        <span className="text-sm sm:text-base flex mt-3">
+          Showing 5 records
+        </span>
         <div className="overflow-x-auto mt-10">
           {userLoading || isLoading ? (
             "Loading..."
@@ -82,7 +91,7 @@ const AllUsers = () => {
               <tbody>
                 {allUsers.map((user, i) => (
                   <tr key={user._id}>
-                    <td>{i + 1}</td>
+                    <td>{skip + i + 1}</td>
                     <td>
                       <img
                         src={user.photoURL}
@@ -198,6 +207,33 @@ const AllUsers = () => {
               </tbody>
             </table>
           )}
+        </div>
+        <div className="flex items-center justify-between gap-3 mt-5">
+          {totalPages > 0 ? (
+            <span className="text-secondary font-bold">
+              Page {currentPage + 1} of {totalPages}
+            </span>
+          ) : (
+            <span className="text-secondary font-bold">Page 0 of 0</span>
+          )}
+          <div className="flex items-center gap-3">
+            {currentPage > 0 && (
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                className="btn btn-outline btn-secondary btn-sm"
+              >
+                Prev
+              </button>
+            )}
+            {currentPage + 1 < totalPages && (
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className="btn btn-outline btn-secondary btn-sm"
+              >
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
