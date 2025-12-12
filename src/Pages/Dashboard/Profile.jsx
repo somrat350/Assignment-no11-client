@@ -142,7 +142,7 @@ const Profile = () => {
     return <p className="text-center">Loading...</p>;
 
   return (
-    <div className="shadow-lg rounded-2xl">
+    <div>
       <h2 className="text-3xl font-bold">Profile</h2>
       {/* Header with Edit Button */}
       <div className="flex justify-end mb-5 sm:pr-5">

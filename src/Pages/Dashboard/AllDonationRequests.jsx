@@ -124,7 +124,7 @@ const AllDonationRequests = () => {
           ) : (
             <table className="table w-full">
               <thead>
-                <tr className="font-semibold text-gray-700">
+                <tr className="font-semibold">
                   <th>#</th>
                   <th>Recipient</th>
                   <th>Location</th>
@@ -170,7 +170,7 @@ const AllDonationRequests = () => {
                       req.donationStatus === "done" ? (
                         <div>
                           <p>{req.donorName}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs">
                             {req.donorEmail}
                           </p>
                         </div>
@@ -264,7 +264,7 @@ const AllDonationRequests = () => {
             {currentPage > 0 && (
               <button
                 onClick={() => setCurrentPage(currentPage - 1)}
-                className="btn btn-outline btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm"
               >
                 Prev
               </button>
@@ -272,7 +272,7 @@ const AllDonationRequests = () => {
             {currentPage + 1 < totalPages && (
               <button
                 onClick={() => setCurrentPage(currentPage + 1)}
-                className="btn btn-outline btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm"
               >
                 Next
               </button>

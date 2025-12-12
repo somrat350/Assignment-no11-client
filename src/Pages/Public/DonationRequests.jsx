@@ -96,7 +96,7 @@ const DonationRequests = () => {
           {currentPage > 0 && (
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
-              className="btn btn-outline btn-secondary btn-sm"
+              className="btn btn-secondary btn-sm"
             >
               Prev
             </button>
@@ -104,7 +104,7 @@ const DonationRequests = () => {
           {currentPage + 1 < totalPages && (
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
-              className="btn btn-outline btn-secondary btn-sm"
+              className="btn btn-secondary btn-sm"
             >
               Next
             </button>

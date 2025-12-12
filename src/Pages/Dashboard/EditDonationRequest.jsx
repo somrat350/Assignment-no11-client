@@ -121,7 +121,7 @@ const EditDonationRequest = () => {
     return <p className="text-center mt-5">Loading...</p>;
 
   return (
-    <div className="shadow-lg rounded-xl">
+    <div>
       <h2 className="text-3xl font-bold mb-5">Edit Donation Request</h2>
 
       <form

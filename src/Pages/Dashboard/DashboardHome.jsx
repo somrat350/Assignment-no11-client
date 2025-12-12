@@ -17,7 +17,7 @@ const DashboardHome = () => {
           👋
         </h2>
 
-        <p className="text-gray-600 mt-2">
+        <p className="mt-2">
           Thank you for being a valuable blood donor.
         </p>
       </div>

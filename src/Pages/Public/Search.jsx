@@ -124,7 +124,7 @@ const Search = () => {
         {/* Search Button */}
         <button
           type="submit"
-          className="btn btn-error text-white w-full col-span-full"
+          className="btn btn-secondary w-full col-span-full"
         >
           Search
         </button>
@@ -163,7 +163,7 @@ const Search = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-600 mt-10">
+            <p className="text-center mt-10">
               No donors found. Please fill the search form and click "Search".
             </p>
           )}

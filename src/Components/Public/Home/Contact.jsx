@@ -1,11 +1,11 @@
 const Contact = () => {
   return (
-    <div className="py-16 bg-red-50">
+    <div className="py-16">
       <h2 className="text-3xl font-bold text-center text-secondary mb-10">
         Contact Us
       </h2>
 
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+      <div className="max-w-3xl mx-auto bg-base-200 p-8 rounded-xl shadow-2xl">
         <form className="grid grid-cols-1 gap-6">
           {/* Name */}
           <input

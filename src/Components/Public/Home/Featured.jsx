@@ -38,7 +38,7 @@ const Featured = () => {
             <h3 className="text-xl text-secondary font-semibold mb-2">
               {f.title}
             </h3>
-            <p className="text-gray-600">{f.desc}</p>
+            <p>{f.desc}</p>
           </div>
         ))}
       </div>

@@ -9,13 +9,48 @@ import { LuGitPullRequest } from "react-icons/lu";
 import { FaBorderAll, FaUsersViewfinder } from "react-icons/fa6";
 import { LiaDonateSolid } from "react-icons/lia";
 import { BiLogOut } from "react-icons/bi";
+import { GoHome } from "react-icons/go";
 import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { logout } = useAuth();
   const { role } = useRole();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to access this page!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout().then(() => {
+          Swal.fire({
+            title: "Logged out!",
+            text: "Your has been logged out.",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
   const menuItems = (
     <>
+      <li>
+        <Link
+          to="/"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="Home"
+        >
+          {/* Dashboard icon */}
+          <GoHome className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">Home</span>
+        </Link>
+      </li>
       <li>
         <NavLink
           to="/dashboard"
@@ -41,8 +76,7 @@ const DashboardLayout = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink
-          end
+        <Link
           to="/funding"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
           data-tip="Funding"
@@ -50,7 +84,7 @@ const DashboardLayout = () => {
           {/* Profile icon */}
           <LiaDonateSolid className="font-bold text-xl" />
           <span className="is-drawer-close:hidden">Funding</span>
-        </NavLink>
+        </Link>
       </li>
       {role === "admin" && (
         <li>
@@ -104,7 +138,7 @@ const DashboardLayout = () => {
       </li>
       <li>
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
           data-tip="Logout"
         >
@@ -116,7 +150,7 @@ const DashboardLayout = () => {
     </>
   );
   return (
-    <div className="bg-[#dcdedf] min-h-screen">
+    <div className="min-h-screen">
       <div className="drawer lg:drawer-open">
         <input
           id="my-drawer-4"
@@ -126,7 +160,7 @@ const DashboardLayout = () => {
         />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar w-full bg-white sticky top-0 z-20">
+          <nav className="navbar w-full backdrop-blur-2xl sticky top-0 z-20 border-b border-secondary/30">
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
@@ -153,13 +187,13 @@ const DashboardLayout = () => {
             </div>
           </nav>
           <div className="p-5">
-            <div className="bg-white rounded-2xl p-4">
+            <div className="rounded-2xl p-4">
               <Outlet />
             </div>
           </div>
         </div>
 
-        <div className="drawer-side is-drawer-close:overflow-visible">
+        <div className="drawer-side is-drawer-close:overflow-visible border-r border-secondary/30">
           <label
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
@@ -171,7 +205,7 @@ const DashboardLayout = () => {
               <Link to="/" className="flex items-center">
                 <img src={logoImg} alt="BloodLine" className="w-8" />
                 <h1
-                  className={`text-3xl font-extrabold text-black is-drawer-close:hidden`}
+                  className={`text-3xl font-extrabold is-drawer-close:hidden`}
                 >
                   BloodLine
                 </h1>
