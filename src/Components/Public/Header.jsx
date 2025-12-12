@@ -43,6 +43,14 @@ const Header = () => {
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-fit min-w-52 p-2 shadow-sm gap-2"
           >
             <li>
+              <Link
+                to="/dashboard/profile"
+                className="btn btn-outline btn-secondary"
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
               <Link to="/dashboard" className="btn btn-outline btn-secondary">
                 Dashboard
               </Link>

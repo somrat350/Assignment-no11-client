@@ -19,19 +19,19 @@ const Footer = () => {
           </div>
           {/* LINKS */}
           <div className="flex items-center gap-5">
-            <Link to="/" className="hover:text-[#642ee3] duration-200">
+            <Link to="/" className="hover:text-secondary duration-200">
               Home
             </Link>
             <Link
               to="/donationRequests"
-              className="hover:text-[#642ee3] duration-200"
+              className="hover:text-secondary duration-200"
             >
               Donation Requests
             </Link>
-            <Link to="/about" className="hover:text-[#642ee3] duration-200">
+            <Link to="/about" className="hover:text-secondary duration-200">
               About
             </Link>
-            <Link to="/contact" className="hover:text-[#642ee3] duration-200">
+            <Link to="/contact" className="hover:text-secondary duration-200">
               Contact
             </Link>
           </div>

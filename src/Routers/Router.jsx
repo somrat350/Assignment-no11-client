@@ -20,6 +20,8 @@ import DonationRequests from "../Pages/Public/DonationRequests";
 import Funding from "../Pages/Public/Payment/Funding";
 import PaymentSuccessful from "../Pages/Public/Payment/PaymentSuccessful";
 import PaymentCanceled from "../Pages/Public/Payment/PaymentCanceled";
+import About from "../Pages/Public/About";
+import Contact from "../Pages/Public/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ export const router = createBrowserRouter([
       {
         path: "/donationRequests",
         Component: DonationRequests,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/viewDonationRequest/:id",

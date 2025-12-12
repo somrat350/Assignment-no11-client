@@ -8,8 +8,11 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { LuGitPullRequest } from "react-icons/lu";
 import { FaBorderAll, FaUsersViewfinder } from "react-icons/fa6";
 import { LiaDonateSolid } from "react-icons/lia";
+import { BiLogOut } from "react-icons/bi";
+import useAuth from "../Hooks/useAuth";
 
 const DashboardLayout = () => {
+  const { logout } = useAuth();
   const { role } = useRole();
   const menuItems = (
     <>
@@ -98,6 +101,17 @@ const DashboardLayout = () => {
           <FaBorderAll className="font-bold text-xl" />
           <span className="is-drawer-close:hidden">All Donation Requests</span>
         </NavLink>
+      </li>
+      <li>
+        <button
+          onClick={logout}
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right navLink"
+          data-tip="Logout"
+        >
+          {/* Profile icon */}
+          <BiLogOut className="font-bold text-xl" />
+          <span className="is-drawer-close:hidden">Logout</span>
+        </button>
       </li>
     </>
   );

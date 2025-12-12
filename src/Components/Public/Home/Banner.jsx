@@ -31,7 +31,7 @@ const Banner = () => {
           {/* Search Donors Button */}
           <Link
             to="/search"
-            className="btn btn-outline btn-secondary text-white px-6"
+            className="btn btn-secondary text-white px-6"
           >
             Search Donors
           </Link>
