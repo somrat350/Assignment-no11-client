@@ -1,16 +1,74 @@
-# React + Vite
+# 🩸 BloodLine – Client Side (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🌐 Live Demo
 
-Currently, two official plugins are available:
+👉 **Live Website:** [BloodLine](https://assignment-no11-48bd1.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+BloodLine is a modern blood donation platform where users can **request blood** and **donate blood** to others.  
+This repository contains the **frontend** of the BloodLine application.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌟 Features
 
-## Expanding the ESLint configuration
+- 🧑‍🤝‍🧑 User registration & login
+- 🩸 Create blood donation requests
+- 🤝 Donate blood to other users
+- 📍 Location-based donor & request matching
+- 🔔 Toast notifications
+- 📱 Fully responsive design
+- 🎨 Clean & modern UI using DaisyUI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+### ⚛️ Core
+
+- React 19
+- Vite
+
+### 🎨 UI & Styling
+
+- Tailwind CSS
+- DaisyUI
+- Swiper
+- React Icons
+- React Fast Marquee
+
+### 🔄 State & Forms
+
+- @tanstack/react-query
+- Axios
+- React Hook Form
+
+### 🔐 Authentication
+
+- Firebase
+
+### 🌐 Routing & UX
+
+- React Router v7
+- React Toastify
+
+### 🧹 Code Quality
+
+- ESLint
+
+---
+
+## 📦 Packages Used
+
+```json
+{
+  "@tanstack/react-query": "^5.90.12",
+  "axios": "^1.13.2",
+  "firebase": "^12.6.0",
+  "react-hook-form": "^7.68.0",
+  "react-router": "^7.10.1",
+  "react-toastify": "^11.0.5",
+  "daisyui": "^5.5.8",
+  "tailwindcss": "^4.1.17",
+  "swiper": "^12.0.3"
+}
+```
