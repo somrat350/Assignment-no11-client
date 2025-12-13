@@ -107,6 +107,10 @@ const Funding = () => {
       <div className="overflow-x-auto mt-5">
         {userLoading || loading || isLoading ? (
           <Loading />
+        ) : funding.length === 0 ? (
+          <p className="text-xl font-bold text-center">
+            No funding records available!
+          </p>
         ) : (
           <table className="table w-full">
             <thead>

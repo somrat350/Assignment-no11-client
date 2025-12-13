@@ -22,6 +22,7 @@ import PaymentSuccessful from "../Pages/Public/Payment/PaymentSuccessful";
 import PaymentCanceled from "../Pages/Public/Payment/PaymentCanceled";
 import About from "../Pages/Public/About";
 import Contact from "../Pages/Public/Contact";
+import Error404 from "../Pages/Error404";
 
 export const router = createBrowserRouter([
   {
@@ -145,5 +146,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/*",
+    Component: Error404,
   },
 ]);

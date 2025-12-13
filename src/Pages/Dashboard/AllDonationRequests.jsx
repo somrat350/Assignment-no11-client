@@ -122,6 +122,10 @@ const AllDonationRequests = () => {
         <div className="overflow-x-auto mt-5">
           {userLoading || isLoading || loading ? (
             <Loading />
+          ) : donationRequests.length === 0 ? (
+            <p className="text-xl font-bold text-center">
+              No donation request available!
+            </p>
           ) : (
             <table className="table w-full">
               <thead>

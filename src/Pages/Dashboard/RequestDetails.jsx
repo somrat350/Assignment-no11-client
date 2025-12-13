@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import {
@@ -59,6 +59,17 @@ const RequestDetails = () => {
   };
 
   if (isLoading || loading) return <Loading />;
+  if (!request)
+    return (
+      <div className="flex justify-center items-center gap-5 flex-col py-10">
+        <p className="text-center font-bold text-xl">
+          Sorry, request not found!
+        </p>
+        <Link to="/donationRequests" className="btn btn-secondary">
+          Back To Donation Requests Page
+        </Link>
+      </div>
+    );
 
   return (
     <div className="shadow-lg rounded-xl">

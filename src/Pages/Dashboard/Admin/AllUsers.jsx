@@ -76,6 +76,8 @@ const AllUsers = () => {
         <div className="overflow-x-auto mt-10">
           {userLoading || isLoading ? (
             <Loading />
+          ) : allUsers.length === 0 ? (
+            <p className="text-xl font-bold text-center">No user available!</p>
           ) : (
             <table className="table w-full">
               <thead>
