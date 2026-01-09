@@ -10,6 +10,7 @@ import { FaMoon, FaSun } from "react-icons/fa6";
 const Header = () => {
   const { user, userLoading, logout } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
   const get = localStorage.getItem("assignment-no11-theme");
   const getTheme = JSON.parse(get ? get : "false");
@@ -22,6 +23,42 @@ const Header = () => {
       .setAttribute("data-theme", theme ? "dark" : "light");
     localStorage.setItem("assignment-no11-theme", JSON.stringify(theme));
   }, [theme]);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past 100px - hide header
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show header
+        setIsHeaderVisible(true);
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    // Throttle scroll events
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', throttledScroll);
+    };
+  }, []);
 
   const handleLogout = () => {
     Swal.fire({
@@ -120,8 +157,13 @@ const Header = () => {
   );
 
   return (
-    <header className="sticky top-0 z-20 backdrop-blur-3xl">
-      <div className="max-w-[1440px] mx-auto px-5 py-3 flex items-center justify-between border-b border-secondary/30 relative">
+    <header 
+      // id="main-tool-bar" 
+      className={`sticky w-full shadow-lg left-0 top-0 z-20 backdrop-blur-md bg-base-200/70 h-16 transition-transform duration-300 ease-in-out ${
+        isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
+      <div className="max-w-360 mx-auto px-5 py-3 flex items-center justify-between relative">
         <div className="flex items-center gap-1 sm:gap-10">
           <HiMenuAlt1
             onClick={() => setOpenMenu(true)}
