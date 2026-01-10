@@ -13,7 +13,7 @@ const Header = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
   const get = localStorage.getItem("assignment-no11-theme");
-  const getTheme = JSON.parse(get ? get : "false");
+  const getTheme = JSON.parse(get ? get : "true");
 
   const [theme, setTheme] = useState(getTheme);
 

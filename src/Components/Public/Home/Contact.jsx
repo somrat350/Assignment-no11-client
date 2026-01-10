@@ -34,11 +34,11 @@ const Contact = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [onlineUsers, setOnlineUsers] = useState(247);
 
-  // Update current time every minute
+  // Update current time every second for live display
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -212,7 +212,7 @@ const Contact = () => {
       <div className="w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Success Message */}
         {showSuccess && (
-          <div className="fixed top-4 right-4 z-50 animate-bounce">
+          <div className="fixed bottom-4 left-4 z-50 animate-bounce">
             <div className="alert alert-success shadow-2xl max-w-sm">
               <FaCheckCircle className="text-xl" />
               <div>
@@ -327,16 +327,16 @@ const Contact = () => {
                       <HiLightningBolt className="ml-2 text-secondary" />
                     </span>
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {contactReasons.map((reason) => (
                       <label
                         key={reason.value}
                         className="cursor-pointer group"
                       >
                         <div
-                          className={`p-3 rounded-lg border-2 transition-all duration-300 ${
+                          className={`p-2 sm:p-3 h-full rounded-lg border-2 transition-all duration-300 flex flex-col gap-1 ${
                             formData.contactReason === reason.value
-                              ? "border-secondary bg-secondary/10"
+                              ? "border-secondary bg-secondary/30"
                               : "border-base-300 hover:border-secondary/50"
                           }`}
                         >
@@ -346,7 +346,7 @@ const Contact = () => {
                             value={reason.value}
                             checked={formData.contactReason === reason.value}
                             onChange={handleInputChange}
-                            className="radio radio-secondary mr-2"
+                            className="radio radio-secondary self-end"
                           />
                           <span className="text-sm flex items-center">
                             <span
@@ -490,7 +490,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     placeholder="Tell us how we can help you..."
                     maxLength="500"
-                    className={`textarea textarea-bordered h-32 resize-none transition-all duration-300 ${
+                    className={`textarea w-full textarea-bordered h-32 resize-none transition-all duration-300 ${
                       formErrors.message
                         ? "textarea-error focus:textarea-error"
                         : "focus:textarea-secondary"
@@ -503,9 +503,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`btn btn-secondary btn-lg w-full text-base-100 transition-all duration-300 transform hover:scale-105 ${
-                    isSubmitting ? "loading" : ""
-                  }`}
+                  className={`btn btn-secondary btn-lg w-full text-white transition-all duration-300 transform hover:scale-105`}
                 >
                   {isSubmitting ? (
                     <>
@@ -608,7 +606,20 @@ const Contact = () => {
                       Current Time
                     </div>
                     <div className="font-mono text-lg font-bold text-secondary">
-                      {currentTime.toLocaleTimeString()}
+                      {currentTime.toLocaleTimeString('en-US', {
+                        hour12: true,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                      })}
+                    </div>
+                    <div className="text-xs text-base-content/60 mt-1">
+                      {currentTime.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
                     </div>
                   </div>
                 </div>
@@ -672,7 +683,7 @@ const Contact = () => {
                     <a
                       key={index}
                       href={social.url}
-                      className={`btn btn-circle btn-outline btn-secondary hover:btn-secondary transition-all duration-300 transform hover:scale-110 hover:rotate-12 ${social.color} group relative`}
+                      className={`btn btn-circle btn-outline btn-secondary hover:btn-secondary transition-all duration-300 transform hover:scale-110 hover:rotate-12 group relative`}
                       title={social.name}
                     >
                       {social.icon}
@@ -695,10 +706,10 @@ const Contact = () => {
 
                 {/* Quick Social Actions */}
                 <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button className="btn btn-ghost btn-xs hover:btn-secondary hover:text-base-100 transition-all duration-200">
+                  <button className="btn btn-sm btn-outline btn-secondary transition-all duration-200">
                     📢 Latest News
                   </button>
-                  <button className="btn btn-ghost btn-xs hover:btn-secondary hover:text-base-100 transition-all duration-200">
+                  <button className="btn btn-sm btn-outline btn-secondary transition-all duration-200">
                     💬 Community
                   </button>
                 </div>

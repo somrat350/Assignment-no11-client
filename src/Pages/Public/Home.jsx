@@ -10,6 +10,7 @@ import FAQ from "../../Components/Public/Home/FAQ";
 import NewsUpdates from "../../Components/Public/Home/NewsUpdates";
 import Featured from "../../Components/Public/Home/Featured";
 import Contact from "../../Components/Public/Home/Contact";
+import BackToTop from "../../Components/Public/BackToTop";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
       <FAQ />
       <NewsUpdates />
       <Contact />
+      <BackToTop />
     </div>
   );
 };

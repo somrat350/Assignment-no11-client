@@ -97,7 +97,7 @@ const FAQ = () => {
           {faqs.map((category, categoryIndex) => (
             <div key={categoryIndex} className="mb-8 sm:mb-12">
               {/* Category Header */}
-              <div className="card bg-linear-to-r from-secondary to-secondary/80 text-base-100 shadow-lg mb-4">
+              <div className="card bg-linear-to-r from-secondary to-secondary/80 text-white shadow-lg mb-4">
                 <div className="card-body p-4">
                   <h3 className="text-xl sm:text-2xl font-bold text-center">{category.category}</h3>
                 </div>
@@ -122,7 +122,7 @@ const FAQ = () => {
                         <h4 className="text-lg font-semibold text-base-content pr-4">
                           {faq.question}
                         </h4>
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                           {isOpen ? (
                             <FaChevronUp className="text-secondary text-xl" />
                           ) : (

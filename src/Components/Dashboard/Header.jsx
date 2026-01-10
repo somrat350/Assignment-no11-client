@@ -7,7 +7,7 @@ const Header = () => {
   const { user, userLoading } = useAuth();
   const { role, isLoading } = useRole();
   const get = localStorage.getItem("assignment-no11-theme");
-  const getTheme = JSON.parse(get ? get : "false");
+  const getTheme = JSON.parse(get ? get : "true");
   const [theme, setTheme] = useState(getTheme);
 
   useEffect(() => {
