@@ -112,3 +112,309 @@
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
+/* Testimonials slider animations */
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out;
+}
+
+/* Testimonials specific styles */
+.testimonial-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Progress bar animation */
+.progress-bar {
+  animation: progress 5s linear infinite;
+}
+
+/* Smooth transitions for testimonial content */
+.testimonial-content {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Enhanced hover effects */
+.testimonial-nav-btn {
+  transition: all 0.3s ease;
+}
+
+.testimonial-nav-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Dot indicator animations */
+.testimonial-dot {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-dot:hover {
+  transform: scale(1.25);
+}
+
+.testimonial-dot.active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+/* Enhanced Skeleton Loader Animations */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, 
+    hsl(var(--b2)) 25%, 
+    hsl(var(--b3)) 50%, 
+    hsl(var(--b2)) 75%
+  );
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom skeleton styles for donation requests with theme colors */
+.donation-skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--b2)) 25%,
+    hsl(var(--b3)) 50%,
+    hsl(var(--b2)) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Skeleton card hover effect */
+.skeleton-card {
+  transition: all 0.3s ease;
+}
+
+.skeleton-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Staggered animation for multiple skeletons */
+.skeleton-stagger-1 { animation-delay: 0.1s; }
+.skeleton-stagger-2 { animation-delay: 0.2s; }
+.skeleton-stagger-3 { animation-delay: 0.3s; }
+.skeleton-stagger-4 { animation-delay: 0.4s; }
+.skeleton-stagger-5 { animation-delay: 0.5s; }
+.skeleton-stagger-6 { animation-delay: 0.6s; }
+.skeleton-stagger-7 { animation-delay: 0.7s; }
+.skeleton-stagger-8 { animation-delay: 0.8s; }
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Enhanced skeleton loading with wave effect */
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-wave::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: skeleton-wave 1.6s ease-in-out infinite;
+  content: '';
+}
+
+/* Improved skeleton card animations with theme colors */
+.skeleton-card-enhanced {
+  background: linear-gradient(
+    110deg,
+    hsl(var(--b2)) 8%,
+    hsl(var(--b3)) 18%,
+    hsl(var(--b2)) 33%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s linear infinite;
+}
+
+/* Skeleton fade-in effect */
+@keyframes skeleton-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skeleton-fade-in {
+  animation: skeleton-fade-in 0.6s ease-out;
+}
+/* Theme-aware skeleton loader improvements */
+.skeleton-card {
+  transition: all 0.3s ease;
+  background: hsl(var(--b1));
+  border-color: hsl(var(--b3) / 0.5);
+}
+
+.skeleton-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px hsl(var(--b3) / 0.3);
+}
+
+/* Enhanced shimmer effect with theme colors */
+@keyframes theme-shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--b1) / 0.8) 50%,
+    transparent 100%
+  );
+  animation: theme-shimmer 2s infinite;
+  transform: translateX(-100%);
+}
+
+/* Responsive skeleton adjustments */
+@media (max-width: 640px) {
+  .skeleton-stagger-1,
+  .skeleton-stagger-2,
+  .skeleton-stagger-3,
+  .skeleton-stagger-4,
+  .skeleton-stagger-5,
+  .skeleton-stagger-6,
+  .skeleton-stagger-7,
+  .skeleton-stagger-8 {
+    animation-delay: 0s;
+  }
+}
+
+/* Dark mode skeleton adjustments */
+@media (prefers-color-scheme: dark) {
+  .skeleton-shimmer::before {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+  }
+}
