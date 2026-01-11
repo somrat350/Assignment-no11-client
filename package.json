@@ -13,7 +13,7 @@
     "gsap": "^3.14.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "recharts": "^3.5.1",
+    "recharts": "^3.6.0",
     "sweetalert2": "^11.26.4"
   },
   "devDependencies": {

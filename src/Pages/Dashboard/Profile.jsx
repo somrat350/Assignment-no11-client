@@ -177,7 +177,7 @@ const Profile = () => {
       {/* Avatar */}
       <div className="flex justify-center mb-4">
         <img
-          src={profile.photoURL}
+          src={user.photoURL}
           className="w-24 h-24 rounded-full border"
           alt="Profile"
         />

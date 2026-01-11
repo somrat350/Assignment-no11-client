@@ -189,7 +189,7 @@ const DashboardLayout = () => {
               <Header />
             </div>
           </nav>
-          <div className="p-5">
+          <div className="">
             <div className="rounded-2xl p-4">
               <Outlet />
             </div>

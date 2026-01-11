@@ -6,9 +6,12 @@ const instanceSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user } = useAuth();
+  const { user, userLoading } = useAuth();
+  if (userLoading) return;
   instanceSecure.interceptors.request.use((config) => {
     config.headers.authorization = user?.accessToken;
+    console.log(config);
+
     return config;
   });
   return instanceSecure;
