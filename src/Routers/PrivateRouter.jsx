@@ -7,7 +7,7 @@ const PrivetRouter = ({ children }) => {
 
   if (userLoading) return;
   if (!user) {
-    return <Navigate to="/auth/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
   return children;
 };

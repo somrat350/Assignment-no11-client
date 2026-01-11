@@ -2,9 +2,6 @@ import { createBrowserRouter } from "react-router";
 import PublicLayout from "../Layouts/PublicLayout";
 import Home from "../Pages/Public/Home";
 import Search from "../Pages/Public/Search";
-import AuthLayout from "../Layouts/AuthLayout";
-import Login from "../Pages/Auth/Login";
-import Register from "../Pages/Auth/Register";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import PrivetRouter from "./PrivateRouter";
 import Profile from "../Pages/Dashboard/Profile";
@@ -24,6 +21,9 @@ import About from "../Pages/Public/About";
 import Contact from "../Pages/Public/Contact";
 import Error404 from "../Pages/Error404";
 import RequestDetailsPublic from "../Pages/Public/RequestDetailsPublic";
+import AlreadyLoggedIn from "./AlreadyLoggedIn";
+import Login from "../Pages/Auth/Login";
+import Register from "../Pages/Auth/Register";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +49,22 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         Component: Contact,
+      },
+      {
+        path: "/login",
+        element: (
+          <AlreadyLoggedIn>
+            <Login />
+          </AlreadyLoggedIn>
+        ),
+      },
+      {
+        path: "/register",
+        element: (
+          <AlreadyLoggedIn>
+            <Register />
+          </AlreadyLoggedIn>
+        ),
       },
       {
         path: "/viewDonationRequest/:id",
@@ -77,24 +93,6 @@ export const router = createBrowserRouter([
             <PaymentCanceled />
           </PrivetRouter>
         ),
-      },
-    ],
-  },
-  {
-    path: "/auth",
-    Component: AuthLayout,
-    children: [
-      {
-        index: true,
-        Component: Login,
-      },
-      {
-        path: "login",
-        Component: Login,
-      },
-      {
-        path: "register",
-        Component: Register,
       },
     ],
   },

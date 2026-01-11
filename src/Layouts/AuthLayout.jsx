@@ -15,8 +15,8 @@ const AuthLayout = () => {
     bannerTitle = "You are already a user";
   } else if (
     location.pathname === "/auth" ||
-    location.pathname === "/auth/" ||
-    location.pathname === "/auth/login"
+    location.pathname === "/" ||
+    location.pathname === "/login"
   ) {
     bannerTitle = "Welcome Back";
   } else {
@@ -34,10 +34,10 @@ const AuthLayout = () => {
             </Link>
           ) : (
             <>
-              <Link to="/auth/login" className="btn btn-outline btn-secondary">
+              <Link to="/login" className="btn btn-outline btn-secondary">
                 Login
               </Link>
-              <Link to="/auth/register" className="btn btn-secondary">
+              <Link to="/register" className="btn btn-secondary">
                 Register
               </Link>
             </>

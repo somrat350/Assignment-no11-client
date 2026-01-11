@@ -55,7 +55,7 @@ const Banner = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               <Link
-                to="/auth/register"
+                to="/register"
                 className="btn btn-secondary btn-sm sm:btn-md lg:btn-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full sm:w-auto"
               >
                 <FaHeartbeat className="mr-2" />

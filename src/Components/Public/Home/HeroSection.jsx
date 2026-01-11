@@ -57,7 +57,7 @@ const HeroSection = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
-            to="/auth/register"
+            to="/register"
             className="btn btn-secondary btn-lg text-base-100 px-8 py-4 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             Become a Donor

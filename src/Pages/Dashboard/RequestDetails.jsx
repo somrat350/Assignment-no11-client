@@ -172,7 +172,7 @@ const RequestDetails = () => {
             className="btn btn-secondary"
             onClick={() => {
               if (!user) {
-                navigate("/auth/login", { state: { from: location } });
+                navigate("/login", { state: { from: location } });
                 return;
               }
               document.getElementById("donateModal").showModal();

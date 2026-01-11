@@ -23,7 +23,7 @@ const QuickActions = () => {
       title: "Join Community",
       description: "Become a life-saving blood donor",
       icon: <FaHeart className="text-2xl sm:text-3xl" />,
-      link: "/auth/register",
+      link: "/register",
       color: "from-success to-success/80",
       emoji: "❤️"
     },

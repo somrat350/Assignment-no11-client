@@ -149,7 +149,7 @@ const Header = () => {
           </ul>
         </div>
       ) : (
-        <Link className="btn btn-secondary" to="/auth/login">
+        <Link className="btn btn-secondary" to="/login">
           Login
         </Link>
       )}
